@@ -1,0 +1,10 @@
+{
+  "prettier.printWidth": 100,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "editor.formatOnSave": true,
+  "window.zoomLevel": 1,
+  "editor.fontSize": 12,
+  "editor.tabSize": 5,
+  "editor.mouseWheelZoom": true
+}
