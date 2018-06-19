@@ -1,5 +1,6 @@
 @import 'base';
 @import '~bootstrap/scss/bootstrap.scss';
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&subset=latin-ext');
 
 // Some best-practice CSS that's useful for most apps
 // Just remove them if they're not what you want
@@ -12,10 +13,48 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: 'Lato', sans-serif;
+  background: url('./images/home.jpg');
+  background-size: cover;
 }
 
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+header {
+  background: #fff;
+  box-shadow: 3px 0 8px rgba($color: #000000, $alpha: 0.4);
+}
+
+header * {
+  color: #4957f5 !important;
+  text-transform: uppercase;
+}
+
+.navbar-brand {
+  color: #86bc42 !important;
+}
+
+.page-layout__viewport {
+  padding-top: 4rem;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
+
+.page-layout__nav-item--active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.nav-link {
+  color: #4957f5 !important;
+}
+.nav-link:hover {
+  color: #86bc42 !important;
+  font-weight: bolder;
 }
