@@ -12,7 +12,7 @@ class AuthView extends Component {
     // 3. Şifre reset ekranı
 
     this.state = {
-      currentView: 2,
+      currentView: 1,
     };
   }
 

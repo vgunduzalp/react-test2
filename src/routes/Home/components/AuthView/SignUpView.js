@@ -23,18 +23,49 @@ class SignUpView extends React.Component {
   onSignUp(e) {
     e.preventDefault();
 
+    if (this.state.email === '' || this.state.password === '') {
+      this.setState({
+        hasError: true,
+        errorMessage: 'Lütfen tüm alanları doldurunuz.',
+      });
+
+      return;
+    }
+
     const model = {
       email: this.state.email,
       password: this.state.password,
     };
 
     Http.post('auth/sign-up', model).then(res => {
-      console.log(res);
+      if (res.status === false) {
+        this.setState({
+          hasError: !res.status,
+          errorMessage: 'Bu email adresi sistemde kayıtlı.',
+        });
+      }
+
+      this.setState({
+        hasError: !res.status,
+      });
     });
+  }
+
+  renderError() {
+    return (
+      <div
+        className="alert alert-danger"
+        style={{ width: '516px', marginLeft: 'auto', marginRight: 'auto', marginTop: '20px' }}
+      >
+        {this.state.errorMessage}
+      </div>
+    );
   }
 
   render() {
     const { onViewChange } = this.props;
+
+    const Error = this.renderError.bind(this);
 
     return (
       <div>
@@ -61,7 +92,7 @@ class SignUpView extends React.Component {
             Kayıt Ol!
           </button>
         </form>
-
+        {this.state.hasError ? <Error /> : null}
         <p>
           Zaten üye misiniz? <br />
           O zaman giriş yapmak için{' '}

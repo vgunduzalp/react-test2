@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { userInit } from 'store/userReducer';
+import * as Http from 'utils/http.helper';
 
 class LoginView extends React.Component {
   constructor() {
@@ -24,14 +25,14 @@ class LoginView extends React.Component {
   }
 
   onUserClick() {
-    const user = {
-      name: 'Veysel Gündüzalp',
-      email: 'vgunduzalp@gmail.com',
-      age: 28,
-      gemder: 'male',
-    };
-
-    this.props.loginUserData(user);
+    Http.post('auth/login', this.state).then(res => {
+      if (res.status) {
+        localStorage.setItem('userToken', res.token);
+        this.props.userInit({ email: this.state.email });
+      } else {
+        alert(res.message);
+      }
+    });
   }
 
   render() {
@@ -106,7 +107,7 @@ const matStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginUserData: user => dispatch(userInit(user)),
+    userInit: user => dispatch(userInit(user)),
   };
 };
 
