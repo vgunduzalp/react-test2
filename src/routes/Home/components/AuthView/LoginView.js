@@ -1,19 +1,68 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { userInit } from 'store/userReducer';
 
 class LoginView extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  emailChanged(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
+
+  passwordChanged(e) {
+    this.setState({
+      password: e.target.value,
+    });
+  }
+
+  onUserClick() {
+    const user = {
+      name: 'Veysel Gündüzalp',
+      email: 'vgunduzalp@gmail.com',
+      age: 28,
+      gemder: 'male',
+    };
+
+    this.props.loginUserData(user);
+  }
+
   render() {
     const { onViewChange } = this.props;
+
+    if (this.props.userData.name) {
+      return <div>GİRİŞ YAPILMIŞ</div>;
+    }
 
     return (
       <div>
         <form className="form-inline">
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="E-Posta" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="E-Posta"
+              value={this.state.email}
+              onChange={this.emailChanged.bind(this)}
+            />
           </div>
           <div className="form-group mx-sm-3">
-            <input type="password" className="form-control" placeholder="Şifre" />
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Şifre"
+              value={this.state.password}
+              onChange={this.passwordChanged.bind(this)}
+            />
           </div>
-          <button type="button" className="btn btn-primary">
+          <button type="button" className="btn btn-primary" onClick={this.onUserClick.bind(this)}>
             Giriş Yap
           </button>
           <a
@@ -49,4 +98,20 @@ class LoginView extends React.Component {
   }
 }
 
-export default LoginView;
+const matStateToProps = state => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUserData: user => dispatch(userInit(user)),
+  };
+};
+
+export default connect(
+  matStateToProps,
+  mapDispatchToProps,
+)(LoginView);
+//export default LoginView;
